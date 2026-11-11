@@ -1,0 +1,18 @@
+Se restauró la herramienta "dotnet-ef" (versión "10.0.15"). Comandos disponibles: dotnet-ef
+
+Restauración realizada correctamente.
+Build started...
+Build succeeded.
+  Determinando los proyectos que se van a restaurar...
+  Todos los proyectos están actualizados para la restauración.
+  Veterinaria.Entidades -> Veterinaria.Entidades\bin\Debug\net10.0\Veterinaria.Entidades.dll
+  Veterinaria.Datos -> Veterinaria.Datos\bin\Debug\net10.0\Veterinaria.Datos.dll
+  Veterinaria.Negocio -> Veterinaria.Negocio\bin\Debug\net10.0\Veterinaria.Negocio.dll
+  Veterinaria.Api -> Veterinaria.Api\bin\Debug\net10.0\Veterinaria.Api.dll
+
+Compilación correcta.
+    0 Advertencia(s)
+    0 Errores
+
+Tiempo transcurrido 00:00:01.39
+

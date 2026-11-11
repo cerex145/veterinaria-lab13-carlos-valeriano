@@ -1,0 +1,744 @@
+[
+  {
+    "numero": 1,
+    "prueba": "Listado de propietarios",
+    "metodo": "GET",
+    "ruta": "/api/Propietarios",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:28 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Ana Torres",
+        "dni": "12345678",
+        "telefono": "987654321"
+      },
+      {
+        "id": 2,
+        "nombre": "Luis Rojas",
+        "dni": "87654321",
+        "telefono": "912345678"
+      }
+    ],
+    "fechaUtc": "2026-11-11T22:35:28.327674+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 2,
+    "prueba": "Consulta de propietario",
+    "metodo": "GET",
+    "ruta": "/api/Propietarios/1",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:28 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "id": 1,
+      "nombre": "Ana Torres",
+      "dni": "12345678",
+      "telefono": "987654321"
+    },
+    "fechaUtc": "2026-11-11T22:35:29.389035+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 3,
+    "prueba": "Mascotas del propietario: ruta anidada",
+    "metodo": "GET",
+    "ruta": "/api/Propietarios/1/mascotas",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Luna",
+        "especie": "Perro",
+        "edad": 3,
+        "propietarioId": 1,
+        "propietarioNombre": "Ana Torres"
+      },
+      {
+        "id": 2,
+        "nombre": "Milo",
+        "especie": "Gato",
+        "edad": 2,
+        "propietarioId": 1,
+        "propietarioNombre": "Ana Torres"
+      }
+    ],
+    "fechaUtc": "2026-11-11T22:35:29.486176+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 4,
+    "prueba": "Listado de mascotas",
+    "metodo": "GET",
+    "ruta": "/api/Mascotas",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Luna",
+        "especie": "Perro",
+        "edad": 3,
+        "propietarioId": 1,
+        "propietarioNombre": "Ana Torres"
+      },
+      {
+        "id": 2,
+        "nombre": "Milo",
+        "especie": "Gato",
+        "edad": 2,
+        "propietarioId": 1,
+        "propietarioNombre": "Ana Torres"
+      },
+      {
+        "id": 3,
+        "nombre": "Toby",
+        "especie": "Perro",
+        "edad": 5,
+        "propietarioId": 2,
+        "propietarioNombre": "Luis Rojas"
+      }
+    ],
+    "fechaUtc": "2026-11-11T22:35:29.610478+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 5,
+    "prueba": "Consulta de mascota y nombre relacionado",
+    "metodo": "GET",
+    "ruta": "/api/Mascotas/1",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "id": 1,
+      "nombre": "Luna",
+      "especie": "Perro",
+      "edad": 3,
+      "propietarioId": 1,
+      "propietarioNombre": "Ana Torres"
+    },
+    "fechaUtc": "2026-11-11T22:35:29.628211+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 6,
+    "prueba": "Filtro por nombre",
+    "metodo": "GET",
+    "ruta": "/api/Propietarios?nombre=Ana",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Ana Torres",
+        "dni": "12345678",
+        "telefono": "987654321"
+      }
+    ],
+    "fechaUtc": "2026-11-11T22:35:29.668572+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 7,
+    "prueba": "Filtros por especie y propietario",
+    "metodo": "GET",
+    "ruta": "/api/Mascotas?especie=Perro&propietarioId=1",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Luna",
+        "especie": "Perro",
+        "edad": 3,
+        "propietarioId": 1,
+        "propietarioNombre": "Ana Torres"
+      }
+    ],
+    "fechaUtc": "2026-11-11T22:35:29.687650+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 8,
+    "prueba": "Data Annotations en propietario",
+    "metodo": "POST",
+    "ruta": "/api/Propietarios",
+    "solicitud": {
+      "nombre": "A",
+      "dni": "12",
+      "telefono": "1"
+    },
+    "esperado": 400,
+    "estado": 400,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+      "title": "One or more validation errors occurred.",
+      "status": 400,
+      "errors": {
+        "Dni": [
+          "The field Dni must be a string with a minimum length of 8 and a maximum length of 8.",
+          "The field Dni must match the regular expression '^\\d{8}$'."
+        ],
+        "Nombre": [
+          "The field Nombre must be a string with a minimum length of 2 and a maximum length of 100."
+        ],
+        "Telefono": [
+          "The field Telefono must be a string with a minimum length of 6 and a maximum length of 20."
+        ]
+      },
+      "traceId": "00-49931237181db0395e86b74a43b48915-ba41b03e0cbb8983-00"
+    },
+    "fechaUtc": "2026-11-11T22:35:29.705324+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 9,
+    "prueba": "Data Annotations en mascota",
+    "metodo": "POST",
+    "ruta": "/api/Mascotas",
+    "solicitud": {
+      "nombre": "X",
+      "especie": "",
+      "edad": 50,
+      "propietarioId": 0
+    },
+    "esperado": 400,
+    "estado": 400,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+      "title": "One or more validation errors occurred.",
+      "status": 400,
+      "errors": {
+        "Edad": [
+          "The field Edad must be between 0 and 40."
+        ],
+        "Nombre": [
+          "The field Nombre must be a string with a minimum length of 2 and a maximum length of 80."
+        ],
+        "Especie": [
+          "The Especie field is required."
+        ],
+        "PropietarioId": [
+          "The field PropietarioId must be between 1 and 2147483647."
+        ]
+      },
+      "traceId": "00-969eea9b9f6db3eadf61b3c7443fb892-c3e6cfddfe4500e9-00"
+    },
+    "fechaUtc": "2026-11-11T22:35:29.766192+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 10,
+    "prueba": "Propietario inexistente",
+    "metodo": "GET",
+    "ruta": "/api/Propietarios/999999",
+    "solicitud": null,
+    "esperado": 404,
+    "estado": 404,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+      "title": "Not Found",
+      "status": 404,
+      "traceId": "00-4d02023f853afce8e96a612ba36485fb-6b33548810d63b10-00"
+    },
+    "fechaUtc": "2026-11-11T22:35:29.778692+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 11,
+    "prueba": "Mascota inexistente",
+    "metodo": "GET",
+    "ruta": "/api/Mascotas/999999",
+    "solicitud": null,
+    "esperado": 404,
+    "estado": 404,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+      "title": "Not Found",
+      "status": 404,
+      "traceId": "00-10d9b70230260b7510eb98925b8d60a8-3c8e91f6b7b3fdce-00"
+    },
+    "fechaUtc": "2026-11-11T22:35:29.789016+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 12,
+    "prueba": "Regla: DNI duplicado",
+    "metodo": "POST",
+    "ruta": "/api/Propietarios",
+    "solicitud": {
+      "nombre": "Ana duplicada",
+      "dni": "12345678",
+      "telefono": "900000000"
+    },
+    "esperado": 409,
+    "estado": 409,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "title": "Regla de negocio",
+      "status": 409,
+      "detail": "Ya existe un propietario con ese DNI."
+    },
+    "fechaUtc": "2026-11-11T22:35:29.796889+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 13,
+    "prueba": "Regla: propietario con mascotas",
+    "metodo": "DELETE",
+    "ruta": "/api/Propietarios/1",
+    "solicitud": null,
+    "esperado": 409,
+    "estado": 409,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "title": "Regla de negocio",
+      "status": 409,
+      "detail": "No se puede eliminar un propietario con mascotas registradas."
+    },
+    "fechaUtc": "2026-11-11T22:35:29.825030+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 14,
+    "prueba": "Regla: propietario de mascota inexistente",
+    "metodo": "POST",
+    "ruta": "/api/Mascotas",
+    "solicitud": {
+      "nombre": "Nube",
+      "especie": "Gato",
+      "edad": 1,
+      "propietarioId": 999999
+    },
+    "esperado": 409,
+    "estado": 409,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "title": "Regla de negocio",
+      "status": 409,
+      "detail": "El propietario indicado no existe."
+    },
+    "fechaUtc": "2026-11-11T22:35:29.855259+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 15,
+    "prueba": "Crear propietario y Location",
+    "metodo": "POST",
+    "ruta": "/api/Propietarios",
+    "solicitud": {
+      "nombre": "Elena Prueba",
+      "dni": "45678912",
+      "telefono": "900111222"
+    },
+    "esperado": 201,
+    "estado": 201,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Location": "https://localhost:7243/api/Propietarios/3",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "id": 3,
+      "nombre": "Elena Prueba",
+      "dni": "45678912",
+      "telefono": "900111222"
+    },
+    "fechaUtc": "2026-11-11T22:35:29.864233+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 16,
+    "prueba": "Verificar recurso de Location",
+    "metodo": "GET",
+    "ruta": "/api/Propietarios/3",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "id": 3,
+      "nombre": "Elena Prueba",
+      "dni": "45678912",
+      "telefono": "900111222"
+    },
+    "fechaUtc": "2026-11-11T22:35:29.992151+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 17,
+    "prueba": "Actualizar propietario",
+    "metodo": "PUT",
+    "ruta": "/api/Propietarios/3",
+    "solicitud": {
+      "nombre": "Elena Actualizada",
+      "dni": "45678912",
+      "telefono": "900333444"
+    },
+    "esperado": 204,
+    "estado": 204,
+    "cabeceras": {
+      "Connection": "close",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel"
+    },
+    "respuesta": null,
+    "fechaUtc": "2026-11-11T22:35:29.999815+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 18,
+    "prueba": "Crear mascota y Location",
+    "metodo": "POST",
+    "ruta": "/api/Mascotas",
+    "solicitud": {
+      "nombre": "Nube",
+      "especie": "Gato",
+      "edad": 1,
+      "propietarioId": 3
+    },
+    "esperado": 201,
+    "estado": 201,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Location": "https://localhost:7243/api/Mascotas/4",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "id": 4,
+      "nombre": "Nube",
+      "especie": "Gato",
+      "edad": 1,
+      "propietarioId": 3,
+      "propietarioNombre": "Elena Actualizada"
+    },
+    "fechaUtc": "2026-11-11T22:35:30.029312+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 19,
+    "prueba": "Actualizar mascota y cambiar propietario",
+    "metodo": "PUT",
+    "ruta": "/api/Mascotas/4",
+    "solicitud": {
+      "nombre": "Nube Actualizada",
+      "especie": "Gato",
+      "edad": 2,
+      "propietarioId": 2
+    },
+    "esperado": 204,
+    "estado": 204,
+    "cabeceras": {
+      "Connection": "close",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel"
+    },
+    "respuesta": null,
+    "fechaUtc": "2026-11-11T22:35:30.062611+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 20,
+    "prueba": "Verificar actualización y MapFrom",
+    "metodo": "GET",
+    "ruta": "/api/Mascotas/4",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "id": 4,
+      "nombre": "Nube Actualizada",
+      "especie": "Gato",
+      "edad": 2,
+      "propietarioId": 2,
+      "propietarioNombre": "Luis Rojas"
+    },
+    "fechaUtc": "2026-11-11T22:35:30.084481+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 21,
+    "prueba": "Eliminar mascota",
+    "metodo": "DELETE",
+    "ruta": "/api/Mascotas/4",
+    "solicitud": null,
+    "esperado": 204,
+    "estado": 204,
+    "cabeceras": {
+      "Connection": "close",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel"
+    },
+    "respuesta": null,
+    "fechaUtc": "2026-11-11T22:35:30.102750+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 22,
+    "prueba": "Eliminar propietario sin mascotas",
+    "metodo": "DELETE",
+    "ruta": "/api/Propietarios/3",
+    "solicitud": null,
+    "esperado": 204,
+    "estado": 204,
+    "cabeceras": {
+      "Connection": "close",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel"
+    },
+    "respuesta": null,
+    "fechaUtc": "2026-11-11T22:35:30.124881+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 23,
+    "prueba": "PUT propietario inexistente",
+    "metodo": "PUT",
+    "ruta": "/api/Propietarios/999999",
+    "solicitud": {
+      "nombre": "Prueba Valida",
+      "dni": "45678912",
+      "telefono": "900333444"
+    },
+    "esperado": 404,
+    "estado": 404,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+      "title": "Not Found",
+      "status": 404,
+      "traceId": "00-b512f6e3361429902c7d8c947cc30b86-e9377e39e3e3153b-00"
+    },
+    "fechaUtc": "2026-11-11T22:35:30.137404+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 24,
+    "prueba": "PUT mascota inexistente",
+    "metodo": "PUT",
+    "ruta": "/api/Mascotas/999999",
+    "solicitud": {
+      "nombre": "Prueba",
+      "especie": "Gato",
+      "edad": 2,
+      "propietarioId": 2
+    },
+    "esperado": 404,
+    "estado": 404,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+      "title": "Not Found",
+      "status": 404,
+      "traceId": "00-dd8e919da54e1efab73367ef4acbcd82-da135e552363700a-00"
+    },
+    "fechaUtc": "2026-11-11T22:35:30.143589+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 25,
+    "prueba": "DELETE propietario inexistente",
+    "metodo": "DELETE",
+    "ruta": "/api/Propietarios/999999",
+    "solicitud": null,
+    "esperado": 404,
+    "estado": 404,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+      "title": "Not Found",
+      "status": 404,
+      "traceId": "00-346dd3eaaf03c38d4a53284458064c08-c0791bb54d1863f7-00"
+    },
+    "fechaUtc": "2026-11-11T22:35:30.148886+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 26,
+    "prueba": "DELETE mascota inexistente",
+    "metodo": "DELETE",
+    "ruta": "/api/Mascotas/999999",
+    "solicitud": null,
+    "esperado": 404,
+    "estado": 404,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+      "title": "Not Found",
+      "status": 404,
+      "traceId": "00-1e8a0aea9fdfe22bbf9b7e7e6cb9b638-00df0b8a7f38a699-00"
+    },
+    "fechaUtc": "2026-11-11T22:35:30.154983+00:00",
+    "correcto": true
+  },
+  {
+    "numero": 27,
+    "prueba": "Ruta anidada de propietario inexistente",
+    "metodo": "GET",
+    "ruta": "/api/Propietarios/999999/mascotas",
+    "solicitud": null,
+    "esperado": 404,
+    "estado": 404,
+    "cabeceras": {
+      "Connection": "close",
+      "Content-Type": "application/problem+json; charset=utf-8",
+      "Date": "Wed, 11 Nov 2026 22:35:29 GMT",
+      "Server": "Kestrel",
+      "Transfer-Encoding": "chunked"
+    },
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+      "title": "Not Found",
+      "status": 404,
+      "traceId": "00-a56bd0aec0b1588e09e8b94c9a425d15-ac400a50550d127c-00"
+    },
+    "fechaUtc": "2026-11-11T22:35:30.160796+00:00",
+    "correcto": true
+  }
+]

@@ -1,0 +1,157 @@
+@baseUrl = https://localhost:7243
+
+### 01 Listado de propietarios (esperado 200)
+GET {{baseUrl}}/api/Propietarios
+
+### 02 Consulta de propietario (esperado 200)
+GET {{baseUrl}}/api/Propietarios/1
+
+### 03 Mascotas del propietario: ruta anidada (esperado 200)
+GET {{baseUrl}}/api/Propietarios/1/mascotas
+
+### 04 Listado de mascotas (esperado 200)
+GET {{baseUrl}}/api/Mascotas
+
+### 05 Consulta de mascota y nombre relacionado (esperado 200)
+GET {{baseUrl}}/api/Mascotas/1
+
+### 06 Filtro por nombre (esperado 200)
+GET {{baseUrl}}/api/Propietarios?nombre=Ana
+
+### 07 Filtros por especie y propietario (esperado 200)
+GET {{baseUrl}}/api/Mascotas?especie=Perro&propietarioId=1
+
+### 08 Data Annotations en propietario (esperado 400)
+POST {{baseUrl}}/api/Propietarios
+Content-Type: application/json
+
+{
+  "nombre": "A",
+  "dni": "12",
+  "telefono": "1"
+}
+
+### 09 Data Annotations en mascota (esperado 400)
+POST {{baseUrl}}/api/Mascotas
+Content-Type: application/json
+
+{
+  "nombre": "X",
+  "especie": "",
+  "edad": 50,
+  "propietarioId": 0
+}
+
+### 10 Propietario inexistente (esperado 404)
+GET {{baseUrl}}/api/Propietarios/999999
+
+### 11 Mascota inexistente (esperado 404)
+GET {{baseUrl}}/api/Mascotas/999999
+
+### 12 Regla: DNI duplicado (esperado 409)
+POST {{baseUrl}}/api/Propietarios
+Content-Type: application/json
+
+{
+  "nombre": "Ana duplicada",
+  "dni": "12345678",
+  "telefono": "900000000"
+}
+
+### 13 Regla: propietario con mascotas (esperado 409)
+DELETE {{baseUrl}}/api/Propietarios/1
+
+### 14 Regla: propietario de mascota inexistente (esperado 409)
+POST {{baseUrl}}/api/Mascotas
+Content-Type: application/json
+
+{
+  "nombre": "Nube",
+  "especie": "Gato",
+  "edad": 1,
+  "propietarioId": 999999
+}
+
+### 15 Crear propietario y Location (esperado 201)
+POST {{baseUrl}}/api/Propietarios
+Content-Type: application/json
+
+{
+  "nombre": "Elena Prueba",
+  "dni": "45678912",
+  "telefono": "900111222"
+}
+
+### 16 Verificar recurso de Location (esperado 200)
+GET {{baseUrl}}/api/Propietarios/3
+
+### 17 Actualizar propietario (esperado 204)
+PUT {{baseUrl}}/api/Propietarios/3
+Content-Type: application/json
+
+{
+  "nombre": "Elena Actualizada",
+  "dni": "45678912",
+  "telefono": "900333444"
+}
+
+### 18 Crear mascota y Location (esperado 201)
+POST {{baseUrl}}/api/Mascotas
+Content-Type: application/json
+
+{
+  "nombre": "Nube",
+  "especie": "Gato",
+  "edad": 1,
+  "propietarioId": 3
+}
+
+### 19 Actualizar mascota y cambiar propietario (esperado 204)
+PUT {{baseUrl}}/api/Mascotas/4
+Content-Type: application/json
+
+{
+  "nombre": "Nube Actualizada",
+  "especie": "Gato",
+  "edad": 2,
+  "propietarioId": 2
+}
+
+### 20 Verificar actualización y MapFrom (esperado 200)
+GET {{baseUrl}}/api/Mascotas/4
+
+### 21 Eliminar mascota (esperado 204)
+DELETE {{baseUrl}}/api/Mascotas/4
+
+### 22 Eliminar propietario sin mascotas (esperado 204)
+DELETE {{baseUrl}}/api/Propietarios/3
+
+### 23 PUT propietario inexistente (esperado 404)
+PUT {{baseUrl}}/api/Propietarios/999999
+Content-Type: application/json
+
+{
+  "nombre": "Prueba Valida",
+  "dni": "45678912",
+  "telefono": "900333444"
+}
+
+### 24 PUT mascota inexistente (esperado 404)
+PUT {{baseUrl}}/api/Mascotas/999999
+Content-Type: application/json
+
+{
+  "nombre": "Prueba",
+  "especie": "Gato",
+  "edad": 2,
+  "propietarioId": 2
+}
+
+### 25 DELETE propietario inexistente (esperado 404)
+DELETE {{baseUrl}}/api/Propietarios/999999
+
+### 26 DELETE mascota inexistente (esperado 404)
+DELETE {{baseUrl}}/api/Mascotas/999999
+
+### 27 Ruta anidada de propietario inexistente (esperado 404)
+GET {{baseUrl}}/api/Propietarios/999999/mascotas
