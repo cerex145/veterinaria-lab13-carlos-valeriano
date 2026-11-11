@@ -8,3 +8,5 @@ appsettings.Development.json
 *.pfx
 *.mdf
 *.ldf
+__pycache__/
+*.pyc

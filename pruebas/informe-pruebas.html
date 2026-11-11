@@ -1,0 +1,238 @@
+<!doctype html><html lang="es"><meta charset="utf-8"><title>Pruebas reales Veterinaria Lab 13</title><style>*{box-sizing:border-box}body{margin:0;background:#edf1f5;font-family:Arial,sans-serif;color:#142333}header{padding:28px 36px;background:#143852;color:white}header h1{font-size:25px;margin:0 0 8px}header p{margin:0}main{max-width:1000px;margin:24px auto}article{background:white;border:1px solid #b3c3cf;margin:24px 0;break-inside:avoid}.top{background:#e4eef5;padding:18px 22px;display:flex;justify-content:space-between;font-size:18px}.top span{color:#146236;font-weight:bold}h2{font-size:22px;margin:20px 22px 10px;font-weight:500;overflow-wrap:anywhere}i{font-style:normal;background:#143852;color:white;border-radius:4px;padding:5px 9px;font-size:17px}.when{color:#435664;font-size:14px;padding:0 22px 16px}.columns{display:grid;grid-template-columns:0.8fr 1.2fr;border-top:1px solid #d7e0e7}section{padding:0 22px 14px}section+section{border-left:1px solid #d7e0e7}h3{font-size:15px;color:#405665}pre{font-family:Consolas,monospace;font-size:18px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0}footer{background:#f4f7f9;padding:13px 22px;font-size:14px;color:#425767}</style><header><h1>Veterinaria Lab 13 · Cliente HTTP automatizado</h1><p>Carlos Alberto Valeriano Colan · 27 de 27 pruebas correctas · 11 endpoints · Códigos 200, 201, 204, 400, 404 y 409</p></header><main><article id="p1"><div class="top"><b>PRUEBA 01 · Listado de propietarios</b><span>200 · CORRECTO</span></div><h2><i>GET</i> /api/Propietarios</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:28 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 200</h3><pre>Content-Type: application/json; charset=utf-8</pre><pre>[
+  {
+    &quot;id&quot;: 1,
+    &quot;nombre&quot;: &quot;Ana Torres&quot;,
+    &quot;dni&quot;: &quot;12345678&quot;,
+    &quot;telefono&quot;: &quot;987654321&quot;
+  },
+  {
+    &quot;id&quot;: 2,
+    &quot;nombre&quot;: &quot;Luis Rojas&quot;,
+    &quot;dni&quot;: &quot;87654321&quot;,
+    &quot;telefono&quot;: &quot;912345678&quot;
+  }
+]</pre></section></div><footer>Esperado: 200 · Recibido: 200 · Registro de ejecución contra SQL Server</footer></article><article id="p2"><div class="top"><b>PRUEBA 02 · Consulta de propietario</b><span>200 · CORRECTO</span></div><h2><i>GET</i> /api/Propietarios/1</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 200</h3><pre>Content-Type: application/json; charset=utf-8</pre><pre>{
+  &quot;id&quot;: 1,
+  &quot;nombre&quot;: &quot;Ana Torres&quot;,
+  &quot;dni&quot;: &quot;12345678&quot;,
+  &quot;telefono&quot;: &quot;987654321&quot;
+}</pre></section></div><footer>Esperado: 200 · Recibido: 200 · Registro de ejecución contra SQL Server</footer></article><article id="p3"><div class="top"><b>PRUEBA 03 · Mascotas del propietario: ruta anidada</b><span>200 · CORRECTO</span></div><h2><i>GET</i> /api/Propietarios/1/mascotas</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 200</h3><pre>Content-Type: application/json; charset=utf-8</pre><pre>[
+  {
+    &quot;id&quot;: 1,
+    &quot;nombre&quot;: &quot;Luna&quot;,
+    &quot;especie&quot;: &quot;Perro&quot;,
+    &quot;edad&quot;: 3,
+    &quot;propietarioId&quot;: 1,
+    &quot;propietarioNombre&quot;: &quot;Ana Torres&quot;
+  },
+  {
+    &quot;id&quot;: 2,
+    &quot;nombre&quot;: &quot;Milo&quot;,
+    &quot;especie&quot;: &quot;Gato&quot;,
+    &quot;edad&quot;: 2,
+    &quot;propietarioId&quot;: 1,
+    &quot;propietarioNombre&quot;: &quot;Ana Torres&quot;
+  }
+]</pre></section></div><footer>Esperado: 200 · Recibido: 200 · Registro de ejecución contra SQL Server</footer></article><article id="p4"><div class="top"><b>PRUEBA 04 · Listado de mascotas</b><span>200 · CORRECTO</span></div><h2><i>GET</i> /api/Mascotas</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 200</h3><pre>Content-Type: application/json; charset=utf-8</pre><pre>[
+  {
+    &quot;id&quot;: 1,
+    &quot;nombre&quot;: &quot;Luna&quot;,
+    &quot;especie&quot;: &quot;Perro&quot;,
+    &quot;edad&quot;: 3,
+    &quot;propietarioId&quot;: 1,
+    &quot;propietarioNombre&quot;: &quot;Ana Torres&quot;
+  },
+  {
+    &quot;id&quot;: 2,
+    &quot;nombre&quot;: &quot;Milo&quot;,
+    &quot;especie&quot;: &quot;Gato&quot;,
+    &quot;edad&quot;: 2,
+    &quot;propietarioId&quot;: 1,
+    &quot;propietarioNombre&quot;: &quot;Ana Torres&quot;
+  },
+  {
+    &quot;id&quot;: 3,
+    &quot;nombre&quot;: &quot;Toby&quot;,
+    &quot;especie&quot;: &quot;Perro&quot;,
+    &quot;edad&quot;: 5,
+    &quot;propietarioId&quot;: 2,
+    &quot;propietarioNombre&quot;: &quot;Luis Rojas&quot;
+  }
+]</pre></section></div><footer>Esperado: 200 · Recibido: 200 · Registro de ejecución contra SQL Server</footer></article><article id="p5"><div class="top"><b>PRUEBA 05 · Consulta de mascota y nombre relacionado</b><span>200 · CORRECTO</span></div><h2><i>GET</i> /api/Mascotas/1</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 200</h3><pre>Content-Type: application/json; charset=utf-8</pre><pre>{
+  &quot;id&quot;: 1,
+  &quot;nombre&quot;: &quot;Luna&quot;,
+  &quot;especie&quot;: &quot;Perro&quot;,
+  &quot;edad&quot;: 3,
+  &quot;propietarioId&quot;: 1,
+  &quot;propietarioNombre&quot;: &quot;Ana Torres&quot;
+}</pre></section></div><footer>Esperado: 200 · Recibido: 200 · Registro de ejecución contra SQL Server</footer></article><article id="p6"><div class="top"><b>PRUEBA 06 · Filtro por nombre</b><span>200 · CORRECTO</span></div><h2><i>GET</i> /api/Propietarios?nombre=Ana</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 200</h3><pre>Content-Type: application/json; charset=utf-8</pre><pre>[
+  {
+    &quot;id&quot;: 1,
+    &quot;nombre&quot;: &quot;Ana Torres&quot;,
+    &quot;dni&quot;: &quot;12345678&quot;,
+    &quot;telefono&quot;: &quot;987654321&quot;
+  }
+]</pre></section></div><footer>Esperado: 200 · Recibido: 200 · Registro de ejecución contra SQL Server</footer></article><article id="p7"><div class="top"><b>PRUEBA 07 · Filtros por especie y propietario</b><span>200 · CORRECTO</span></div><h2><i>GET</i> /api/Mascotas?especie=Perro&amp;propietarioId=1</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 200</h3><pre>Content-Type: application/json; charset=utf-8</pre><pre>[
+  {
+    &quot;id&quot;: 1,
+    &quot;nombre&quot;: &quot;Luna&quot;,
+    &quot;especie&quot;: &quot;Perro&quot;,
+    &quot;edad&quot;: 3,
+    &quot;propietarioId&quot;: 1,
+    &quot;propietarioNombre&quot;: &quot;Ana Torres&quot;
+  }
+]</pre></section></div><footer>Esperado: 200 · Recibido: 200 · Registro de ejecución contra SQL Server</footer></article><article id="p8"><div class="top"><b>PRUEBA 08 · Data Annotations en propietario</b><span>400 · CORRECTO</span></div><h2><i>POST</i> /api/Propietarios</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>{
+  &quot;nombre&quot;: &quot;A&quot;,
+  &quot;dni&quot;: &quot;12&quot;,
+  &quot;telefono&quot;: &quot;1&quot;
+}</pre></section><section><h3>Respuesta real · HTTP 400</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc9110#section-15.5.1&quot;,
+  &quot;title&quot;: &quot;One or more validation errors occurred.&quot;,
+  &quot;status&quot;: 400,
+  &quot;errors&quot;: {
+    &quot;Dni&quot;: [
+      &quot;The field Dni must be a string with a minimum length of 8 and a maximum length of 8.&quot;,
+      &quot;The field Dni must match the regular expression '^\\d{8}$'.&quot;
+    ],
+    &quot;Nombre&quot;: [
+      &quot;The field Nombre must be a string with a minimum length of 2 and a maximum length of 100.&quot;
+    ],
+    &quot;Telefono&quot;: [
+      &quot;The field Telefono must be a string with a minimum length of 6 and a maximum length of 20.&quot;
+    ]
+  },
+  &quot;traceId&quot;: &quot;00-49931237181db0395e86b74a43b48915-ba41b03e0cbb8983-00&quot;
+}</pre></section></div><footer>Esperado: 400 · Recibido: 400 · Registro de ejecución contra SQL Server</footer></article><article id="p9"><div class="top"><b>PRUEBA 09 · Data Annotations en mascota</b><span>400 · CORRECTO</span></div><h2><i>POST</i> /api/Mascotas</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>{
+  &quot;nombre&quot;: &quot;X&quot;,
+  &quot;especie&quot;: &quot;&quot;,
+  &quot;edad&quot;: 50,
+  &quot;propietarioId&quot;: 0
+}</pre></section><section><h3>Respuesta real · HTTP 400</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc9110#section-15.5.1&quot;,
+  &quot;title&quot;: &quot;One or more validation errors occurred.&quot;,
+  &quot;status&quot;: 400,
+  &quot;errors&quot;: {
+    &quot;Edad&quot;: [
+      &quot;The field Edad must be between 0 and 40.&quot;
+    ],
+    &quot;Nombre&quot;: [
+      &quot;The field Nombre must be a string with a minimum length of 2 and a maximum length of 80.&quot;
+    ],
+    &quot;Especie&quot;: [
+      &quot;The Especie field is required.&quot;
+    ],
+    &quot;PropietarioId&quot;: [
+      &quot;The field PropietarioId must be between 1 and 2147483647.&quot;
+    ]
+  },
+  &quot;traceId&quot;: &quot;00-969eea9b9f6db3eadf61b3c7443fb892-c3e6cfddfe4500e9-00&quot;
+}</pre></section></div><footer>Esperado: 400 · Recibido: 400 · Registro de ejecución contra SQL Server</footer></article><article id="p10"><div class="top"><b>PRUEBA 10 · Propietario inexistente</b><span>404 · CORRECTO</span></div><h2><i>GET</i> /api/Propietarios/999999</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 404</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc9110#section-15.5.5&quot;,
+  &quot;title&quot;: &quot;Not Found&quot;,
+  &quot;status&quot;: 404,
+  &quot;traceId&quot;: &quot;00-4d02023f853afce8e96a612ba36485fb-6b33548810d63b10-00&quot;
+}</pre></section></div><footer>Esperado: 404 · Recibido: 404 · Registro de ejecución contra SQL Server</footer></article><article id="p11"><div class="top"><b>PRUEBA 11 · Mascota inexistente</b><span>404 · CORRECTO</span></div><h2><i>GET</i> /api/Mascotas/999999</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 404</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc9110#section-15.5.5&quot;,
+  &quot;title&quot;: &quot;Not Found&quot;,
+  &quot;status&quot;: 404,
+  &quot;traceId&quot;: &quot;00-10d9b70230260b7510eb98925b8d60a8-3c8e91f6b7b3fdce-00&quot;
+}</pre></section></div><footer>Esperado: 404 · Recibido: 404 · Registro de ejecución contra SQL Server</footer></article><article id="p12"><div class="top"><b>PRUEBA 12 · Regla: DNI duplicado</b><span>409 · CORRECTO</span></div><h2><i>POST</i> /api/Propietarios</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>{
+  &quot;nombre&quot;: &quot;Ana duplicada&quot;,
+  &quot;dni&quot;: &quot;12345678&quot;,
+  &quot;telefono&quot;: &quot;900000000&quot;
+}</pre></section><section><h3>Respuesta real · HTTP 409</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;title&quot;: &quot;Regla de negocio&quot;,
+  &quot;status&quot;: 409,
+  &quot;detail&quot;: &quot;Ya existe un propietario con ese DNI.&quot;
+}</pre></section></div><footer>Esperado: 409 · Recibido: 409 · Registro de ejecución contra SQL Server</footer></article><article id="p13"><div class="top"><b>PRUEBA 13 · Regla: propietario con mascotas</b><span>409 · CORRECTO</span></div><h2><i>DELETE</i> /api/Propietarios/1</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 409</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;title&quot;: &quot;Regla de negocio&quot;,
+  &quot;status&quot;: 409,
+  &quot;detail&quot;: &quot;No se puede eliminar un propietario con mascotas registradas.&quot;
+}</pre></section></div><footer>Esperado: 409 · Recibido: 409 · Registro de ejecución contra SQL Server</footer></article><article id="p14"><div class="top"><b>PRUEBA 14 · Regla: propietario de mascota inexistente</b><span>409 · CORRECTO</span></div><h2><i>POST</i> /api/Mascotas</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>{
+  &quot;nombre&quot;: &quot;Nube&quot;,
+  &quot;especie&quot;: &quot;Gato&quot;,
+  &quot;edad&quot;: 1,
+  &quot;propietarioId&quot;: 999999
+}</pre></section><section><h3>Respuesta real · HTTP 409</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;title&quot;: &quot;Regla de negocio&quot;,
+  &quot;status&quot;: 409,
+  &quot;detail&quot;: &quot;El propietario indicado no existe.&quot;
+}</pre></section></div><footer>Esperado: 409 · Recibido: 409 · Registro de ejecución contra SQL Server</footer></article><article id="p15"><div class="top"><b>PRUEBA 15 · Crear propietario y Location</b><span>201 · CORRECTO</span></div><h2><i>POST</i> /api/Propietarios</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>{
+  &quot;nombre&quot;: &quot;Elena Prueba&quot;,
+  &quot;dni&quot;: &quot;45678912&quot;,
+  &quot;telefono&quot;: &quot;900111222&quot;
+}</pre></section><section><h3>Respuesta real · HTTP 201</h3><pre>Content-Type: application/json; charset=utf-8
+Location: https://localhost:7243/api/Propietarios/3</pre><pre>{
+  &quot;id&quot;: 3,
+  &quot;nombre&quot;: &quot;Elena Prueba&quot;,
+  &quot;dni&quot;: &quot;45678912&quot;,
+  &quot;telefono&quot;: &quot;900111222&quot;
+}</pre></section></div><footer>Esperado: 201 · Recibido: 201 · Registro de ejecución contra SQL Server</footer></article><article id="p16"><div class="top"><b>PRUEBA 16 · Verificar recurso de Location</b><span>200 · CORRECTO</span></div><h2><i>GET</i> /api/Propietarios/3</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 200</h3><pre>Content-Type: application/json; charset=utf-8</pre><pre>{
+  &quot;id&quot;: 3,
+  &quot;nombre&quot;: &quot;Elena Prueba&quot;,
+  &quot;dni&quot;: &quot;45678912&quot;,
+  &quot;telefono&quot;: &quot;900111222&quot;
+}</pre></section></div><footer>Esperado: 200 · Recibido: 200 · Registro de ejecución contra SQL Server</footer></article><article id="p17"><div class="top"><b>PRUEBA 17 · Actualizar propietario</b><span>204 · CORRECTO</span></div><h2><i>PUT</i> /api/Propietarios/3</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:29 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>{
+  &quot;nombre&quot;: &quot;Elena Actualizada&quot;,
+  &quot;dni&quot;: &quot;45678912&quot;,
+  &quot;telefono&quot;: &quot;900333444&quot;
+}</pre></section><section><h3>Respuesta real · HTTP 204</h3><pre></pre><pre>(sin cuerpo)</pre></section></div><footer>Esperado: 204 · Recibido: 204 · Registro de ejecución contra SQL Server</footer></article><article id="p18"><div class="top"><b>PRUEBA 18 · Crear mascota y Location</b><span>201 · CORRECTO</span></div><h2><i>POST</i> /api/Mascotas</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:30 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>{
+  &quot;nombre&quot;: &quot;Nube&quot;,
+  &quot;especie&quot;: &quot;Gato&quot;,
+  &quot;edad&quot;: 1,
+  &quot;propietarioId&quot;: 3
+}</pre></section><section><h3>Respuesta real · HTTP 201</h3><pre>Content-Type: application/json; charset=utf-8
+Location: https://localhost:7243/api/Mascotas/4</pre><pre>{
+  &quot;id&quot;: 4,
+  &quot;nombre&quot;: &quot;Nube&quot;,
+  &quot;especie&quot;: &quot;Gato&quot;,
+  &quot;edad&quot;: 1,
+  &quot;propietarioId&quot;: 3,
+  &quot;propietarioNombre&quot;: &quot;Elena Actualizada&quot;
+}</pre></section></div><footer>Esperado: 201 · Recibido: 201 · Registro de ejecución contra SQL Server</footer></article><article id="p19"><div class="top"><b>PRUEBA 19 · Actualizar mascota y cambiar propietario</b><span>204 · CORRECTO</span></div><h2><i>PUT</i> /api/Mascotas/4</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:30 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>{
+  &quot;nombre&quot;: &quot;Nube Actualizada&quot;,
+  &quot;especie&quot;: &quot;Gato&quot;,
+  &quot;edad&quot;: 2,
+  &quot;propietarioId&quot;: 2
+}</pre></section><section><h3>Respuesta real · HTTP 204</h3><pre></pre><pre>(sin cuerpo)</pre></section></div><footer>Esperado: 204 · Recibido: 204 · Registro de ejecución contra SQL Server</footer></article><article id="p20"><div class="top"><b>PRUEBA 20 · Verificar actualización y MapFrom</b><span>200 · CORRECTO</span></div><h2><i>GET</i> /api/Mascotas/4</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:30 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 200</h3><pre>Content-Type: application/json; charset=utf-8</pre><pre>{
+  &quot;id&quot;: 4,
+  &quot;nombre&quot;: &quot;Nube Actualizada&quot;,
+  &quot;especie&quot;: &quot;Gato&quot;,
+  &quot;edad&quot;: 2,
+  &quot;propietarioId&quot;: 2,
+  &quot;propietarioNombre&quot;: &quot;Luis Rojas&quot;
+}</pre></section></div><footer>Esperado: 200 · Recibido: 200 · Registro de ejecución contra SQL Server</footer></article><article id="p21"><div class="top"><b>PRUEBA 21 · Eliminar mascota</b><span>204 · CORRECTO</span></div><h2><i>DELETE</i> /api/Mascotas/4</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:30 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 204</h3><pre></pre><pre>(sin cuerpo)</pre></section></div><footer>Esperado: 204 · Recibido: 204 · Registro de ejecución contra SQL Server</footer></article><article id="p22"><div class="top"><b>PRUEBA 22 · Eliminar propietario sin mascotas</b><span>204 · CORRECTO</span></div><h2><i>DELETE</i> /api/Propietarios/3</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:30 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 204</h3><pre></pre><pre>(sin cuerpo)</pre></section></div><footer>Esperado: 204 · Recibido: 204 · Registro de ejecución contra SQL Server</footer></article><article id="p23"><div class="top"><b>PRUEBA 23 · PUT propietario inexistente</b><span>404 · CORRECTO</span></div><h2><i>PUT</i> /api/Propietarios/999999</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:30 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>{
+  &quot;nombre&quot;: &quot;Prueba Valida&quot;,
+  &quot;dni&quot;: &quot;45678912&quot;,
+  &quot;telefono&quot;: &quot;900333444&quot;
+}</pre></section><section><h3>Respuesta real · HTTP 404</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc9110#section-15.5.5&quot;,
+  &quot;title&quot;: &quot;Not Found&quot;,
+  &quot;status&quot;: 404,
+  &quot;traceId&quot;: &quot;00-b512f6e3361429902c7d8c947cc30b86-e9377e39e3e3153b-00&quot;
+}</pre></section></div><footer>Esperado: 404 · Recibido: 404 · Registro de ejecución contra SQL Server</footer></article><article id="p24"><div class="top"><b>PRUEBA 24 · PUT mascota inexistente</b><span>404 · CORRECTO</span></div><h2><i>PUT</i> /api/Mascotas/999999</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:30 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>{
+  &quot;nombre&quot;: &quot;Prueba&quot;,
+  &quot;especie&quot;: &quot;Gato&quot;,
+  &quot;edad&quot;: 2,
+  &quot;propietarioId&quot;: 2
+}</pre></section><section><h3>Respuesta real · HTTP 404</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc9110#section-15.5.5&quot;,
+  &quot;title&quot;: &quot;Not Found&quot;,
+  &quot;status&quot;: 404,
+  &quot;traceId&quot;: &quot;00-dd8e919da54e1efab73367ef4acbcd82-da135e552363700a-00&quot;
+}</pre></section></div><footer>Esperado: 404 · Recibido: 404 · Registro de ejecución contra SQL Server</footer></article><article id="p25"><div class="top"><b>PRUEBA 25 · DELETE propietario inexistente</b><span>404 · CORRECTO</span></div><h2><i>DELETE</i> /api/Propietarios/999999</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:30 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 404</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc9110#section-15.5.5&quot;,
+  &quot;title&quot;: &quot;Not Found&quot;,
+  &quot;status&quot;: 404,
+  &quot;traceId&quot;: &quot;00-346dd3eaaf03c38d4a53284458064c08-c0791bb54d1863f7-00&quot;
+}</pre></section></div><footer>Esperado: 404 · Recibido: 404 · Registro de ejecución contra SQL Server</footer></article><article id="p26"><div class="top"><b>PRUEBA 26 · DELETE mascota inexistente</b><span>404 · CORRECTO</span></div><h2><i>DELETE</i> /api/Mascotas/999999</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:30 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 404</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc9110#section-15.5.5&quot;,
+  &quot;title&quot;: &quot;Not Found&quot;,
+  &quot;status&quot;: 404,
+  &quot;traceId&quot;: &quot;00-1e8a0aea9fdfe22bbf9b7e7e6cb9b638-00df0b8a7f38a699-00&quot;
+}</pre></section></div><footer>Esperado: 404 · Recibido: 404 · Registro de ejecución contra SQL Server</footer></article><article id="p27"><div class="top"><b>PRUEBA 27 · Ruta anidada de propietario inexistente</b><span>404 · CORRECTO</span></div><h2><i>GET</i> /api/Propietarios/999999/mascotas</h2><div class="when">API local · HTTPS localhost:7243 · SQL Server 2022 · 11/11/2026, 5:35:30 p. m. (Lima)</div><div class="columns"><section><h3>Solicitud HTTP</h3><pre>(sin cuerpo)</pre></section><section><h3>Respuesta real · HTTP 404</h3><pre>Content-Type: application/problem+json; charset=utf-8</pre><pre>{
+  &quot;type&quot;: &quot;https://tools.ietf.org/html/rfc9110#section-15.5.5&quot;,
+  &quot;title&quot;: &quot;Not Found&quot;,
+  &quot;status&quot;: 404,
+  &quot;traceId&quot;: &quot;00-a56bd0aec0b1588e09e8b94c9a425d15-ac400a50550d127c-00&quot;
+}</pre></section></div><footer>Esperado: 404 · Recibido: 404 · Registro de ejecución contra SQL Server</footer></article></main></html>

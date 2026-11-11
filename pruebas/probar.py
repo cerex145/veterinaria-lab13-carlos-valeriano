@@ -54,8 +54,17 @@ assert sum(len([m for m in p if m in ['get','post','put','delete']]) for p in sw
 (out/'openapi.json').write_text(json.dumps(swagger,ensure_ascii=False,indent=2),encoding='utf8')
 http=['@baseUrl = https://localhost:7243','']
 for r in results:
- http.extend([f"### {r['numero']:02d} {r['prueba']} (esperado {r['esperado']})",f"{r['metodo']} {{{{baseUrl}}}}{r['ruta']}"])
- if r['solicitud'] is not None: http.extend(['Content-Type: application/json','',json.dumps(r['solicitud'],ensure_ascii=False,indent=2)])
+ route=r['ruta']
+ if route==f'/api/Propietarios/{oid}': route='/api/Propietarios/{{crearPropietario.response.body.$.id}}'
+ if route==f'/api/Mascotas/{pid}': route='/api/Mascotas/{{crearMascota.response.body.$.id}}'
+ http.append(f"### {r['numero']:02d} {r['prueba']} (esperado {r['esperado']})")
+ if r['numero']==15: http.append('# @name crearPropietario')
+ if r['numero']==18: http.append('# @name crearMascota')
+ http.append(f"{r['metodo']} {{{{baseUrl}}}}{route}")
+ if r['solicitud'] is not None:
+  payload=json.dumps(r['solicitud'],ensure_ascii=False,indent=2)
+  if r['numero']==18: payload=payload.replace(f'"propietarioId": {oid}','"propietarioId": {{crearPropietario.response.body.$.id}}')
+  http.extend(['Content-Type: application/json','',payload])
  http.append('')
 (out/'endpoints.http').write_text('\n'.join(http),encoding='utf8')
 print(f'RESULTADO: {len(results)}/{len(results)} pruebas correctas; 11 endpoints y Swagger con DTOs. IDs temporales eliminados: propietario {oid}, mascota {pid}.')

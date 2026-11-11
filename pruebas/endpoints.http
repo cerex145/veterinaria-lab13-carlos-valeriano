@@ -73,6 +73,7 @@ Content-Type: application/json
 }
 
 ### 15 Crear propietario y Location (esperado 201)
+# @name crearPropietario
 POST {{baseUrl}}/api/Propietarios
 Content-Type: application/json
 
@@ -83,10 +84,10 @@ Content-Type: application/json
 }
 
 ### 16 Verificar recurso de Location (esperado 200)
-GET {{baseUrl}}/api/Propietarios/3
+GET {{baseUrl}}/api/Propietarios/{{crearPropietario.response.body.$.id}}
 
 ### 17 Actualizar propietario (esperado 204)
-PUT {{baseUrl}}/api/Propietarios/3
+PUT {{baseUrl}}/api/Propietarios/{{crearPropietario.response.body.$.id}}
 Content-Type: application/json
 
 {
@@ -96,6 +97,7 @@ Content-Type: application/json
 }
 
 ### 18 Crear mascota y Location (esperado 201)
+# @name crearMascota
 POST {{baseUrl}}/api/Mascotas
 Content-Type: application/json
 
@@ -103,11 +105,11 @@ Content-Type: application/json
   "nombre": "Nube",
   "especie": "Gato",
   "edad": 1,
-  "propietarioId": 3
+  "propietarioId": {{crearPropietario.response.body.$.id}}
 }
 
 ### 19 Actualizar mascota y cambiar propietario (esperado 204)
-PUT {{baseUrl}}/api/Mascotas/4
+PUT {{baseUrl}}/api/Mascotas/{{crearMascota.response.body.$.id}}
 Content-Type: application/json
 
 {
@@ -118,13 +120,13 @@ Content-Type: application/json
 }
 
 ### 20 Verificar actualización y MapFrom (esperado 200)
-GET {{baseUrl}}/api/Mascotas/4
+GET {{baseUrl}}/api/Mascotas/{{crearMascota.response.body.$.id}}
 
 ### 21 Eliminar mascota (esperado 204)
-DELETE {{baseUrl}}/api/Mascotas/4
+DELETE {{baseUrl}}/api/Mascotas/{{crearMascota.response.body.$.id}}
 
 ### 22 Eliminar propietario sin mascotas (esperado 204)
-DELETE {{baseUrl}}/api/Propietarios/3
+DELETE {{baseUrl}}/api/Propietarios/{{crearPropietario.response.body.$.id}}
 
 ### 23 PUT propietario inexistente (esperado 404)
 PUT {{baseUrl}}/api/Propietarios/999999
