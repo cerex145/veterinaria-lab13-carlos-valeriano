@@ -1,0 +1,608 @@
+[
+  {
+    "numero": 1,
+    "prueba": "Login de Recepcionista",
+    "fechaUtc": "2026-11-26T22:26:57.346359+00:00",
+    "metodo": "POST",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/auth/login",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "recepcionista@veterinaria.test",
+      "clave": "[oculta]"
+    },
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": {
+      "token": "[JWT omitido]",
+      "expiracion": "2026-11-26T23:27:39.4967002Z"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 2,
+    "prueba": "Login de Veterinario",
+    "fechaUtc": "2026-11-26T22:27:25.241672+00:00",
+    "metodo": "POST",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/auth/login",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "veterinario@veterinaria.test",
+      "clave": "[oculta]"
+    },
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": {
+      "token": "[JWT omitido]",
+      "expiracion": "2026-11-26T23:27:49.2983289Z"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 3,
+    "prueba": "Catalogo por gateway sin JWT",
+    "fechaUtc": "2026-11-26T22:27:34.799993+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/vacunas",
+    "rol": "Sin token",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 4,
+    "prueba": "Servicio 2 directo sin JWT",
+    "fechaUtc": "2026-11-26T22:27:35.026406+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-vacunas.onrender.com/api/vacunas",
+    "rol": "Sin token",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 5,
+    "prueba": "Escritura sin JWT",
+    "fechaUtc": "2026-11-26T22:27:35.649142+00:00",
+    "metodo": "POST",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/propietarios",
+    "rol": "Sin token",
+    "solicitud": {
+      "nombre": "Prueba",
+      "dni": "92345678",
+      "telefono": "900000000"
+    },
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 6,
+    "prueba": "Perfil sin JWT",
+    "fechaUtc": "2026-11-26T22:27:35.871750+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/auth/perfil",
+    "rol": "Sin token",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 7,
+    "prueba": "GET de la S14 conserva autenticacion",
+    "fechaUtc": "2026-11-26T22:27:36.092893+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/propietarios",
+    "rol": "Sin token",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 8,
+    "prueba": "Credenciales invalidas",
+    "fechaUtc": "2026-11-26T22:27:36.419948+00:00",
+    "metodo": "POST",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/auth/login",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "noexiste@veterinaria.test",
+      "clave": "[oculta]"
+    },
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.2",
+      "title": "Unauthorized",
+      "status": 401,
+      "traceId": "00-e019cb06ad641e8849e907040d5260cb-75b319e1a07cb1e9-00"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 9,
+    "prueba": "Firma invalida en gateway",
+    "fechaUtc": "2026-11-26T22:27:37.265466+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/vacunas",
+    "rol": "Invalido",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 10,
+    "prueba": "Firma invalida en servicio 2",
+    "fechaUtc": "2026-11-26T22:27:37.812409+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-vacunas.onrender.com/api/vacunas",
+    "rol": "Invalido",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 11,
+    "prueba": "Lista de vacunas Recepcionista",
+    "fechaUtc": "2026-11-26T22:27:38.457797+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/vacunas",
+    "rol": "Recepcionista",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Antirrabica",
+        "especie": "Perro y gato"
+      },
+      {
+        "id": 2,
+        "nombre": "Triple felina",
+        "especie": "Gato"
+      },
+      {
+        "id": 3,
+        "nombre": "Quintuple canina",
+        "especie": "Perro"
+      }
+    ],
+    "correcto": true
+  },
+  {
+    "numero": 12,
+    "prueba": "Vacuna por id Veterinario",
+    "fechaUtc": "2026-11-26T22:27:39.069605+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/vacunas/1",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": {
+      "id": 1,
+      "nombre": "Antirrabica",
+      "especie": "Perro y gato"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 13,
+    "prueba": "Vacuna inexistente",
+    "fechaUtc": "2026-11-26T22:27:39.377188+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/vacunas/999999",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 404,
+    "estado": 404,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 14,
+    "prueba": "Perfil desde claims",
+    "fechaUtc": "2026-11-26T22:27:39.650147+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/auth/perfil",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": {
+      "correo": "veterinario@veterinaria.test",
+      "rol": "Veterinario"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 15,
+    "prueba": "Filtro propietarios",
+    "fechaUtc": "2026-11-26T22:27:40.853709+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/propietarios?nombre=Ana",
+    "rol": "Recepcionista",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Ana Torres",
+        "dni": "12345678",
+        "telefono": "987654321"
+      }
+    ],
+    "correcto": true
+  },
+  {
+    "numero": 16,
+    "prueba": "Filtro mascotas",
+    "fechaUtc": "2026-11-26T22:27:42.064531+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/mascotas?especie=Perro&propietarioId=1",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Luna",
+        "especie": "Perro",
+        "edad": 3,
+        "propietarioId": 1,
+        "propietarioNombre": "Ana Torres"
+      }
+    ],
+    "correcto": true
+  },
+  {
+    "numero": 17,
+    "prueba": "Rol sin permiso de alta",
+    "fechaUtc": "2026-11-26T22:27:42.769375+00:00",
+    "metodo": "POST",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/propietarios",
+    "rol": "Veterinario",
+    "solicitud": {
+      "nombre": "Prueba",
+      "dni": "92345678",
+      "telefono": "900000000"
+    },
+    "esperado": 403,
+    "estado": 403,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 18,
+    "prueba": "Crear propietario",
+    "fechaUtc": "2026-11-26T22:27:43.068535+00:00",
+    "metodo": "POST",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/propietarios",
+    "rol": "Recepcionista",
+    "solicitud": {
+      "nombre": "Prueba Semana Quince",
+      "dni": "92460055",
+      "telefono": "900111222"
+    },
+    "esperado": 201,
+    "estado": 201,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Prueba Semana Quince",
+      "dni": "92460055",
+      "telefono": "900111222"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 19,
+    "prueba": "Propietario por id",
+    "fechaUtc": "2026-11-26T22:27:45.114182+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/propietarios/3",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Prueba Semana Quince",
+      "dni": "92460055",
+      "telefono": "900111222"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 20,
+    "prueba": "Actualizar propietario",
+    "fechaUtc": "2026-11-26T22:27:45.457955+00:00",
+    "metodo": "PUT",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/propietarios/3",
+    "rol": "Recepcionista",
+    "solicitud": {
+      "nombre": "Prueba Actualizada",
+      "dni": "92460055",
+      "telefono": "900111222"
+    },
+    "esperado": 204,
+    "estado": 204,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 21,
+    "prueba": "Crear mascota",
+    "fechaUtc": "2026-11-26T22:27:46.070567+00:00",
+    "metodo": "POST",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/mascotas",
+    "rol": "Recepcionista",
+    "solicitud": {
+      "nombre": "Nube",
+      "especie": "Gato",
+      "edad": 2,
+      "propietarioId": 3
+    },
+    "esperado": 201,
+    "estado": 201,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Nube",
+      "especie": "Gato",
+      "edad": 2,
+      "propietarioId": 3,
+      "propietarioNombre": "Prueba Actualizada"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 22,
+    "prueba": "Ruta anidada con comodin",
+    "fechaUtc": "2026-11-26T22:27:46.755340+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/propietarios/3/mascotas",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": [
+      {
+        "id": 2,
+        "nombre": "Nube",
+        "especie": "Gato",
+        "edad": 2,
+        "propietarioId": 3,
+        "propietarioNombre": "Prueba Actualizada"
+      }
+    ],
+    "correcto": true
+  },
+  {
+    "numero": 23,
+    "prueba": "Recepcionista no modifica mascota",
+    "fechaUtc": "2026-11-26T22:27:47.067699+00:00",
+    "metodo": "PUT",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/mascotas/2",
+    "rol": "Recepcionista",
+    "solicitud": {
+      "nombre": "Nube",
+      "especie": "Gato",
+      "edad": 3,
+      "propietarioId": 3
+    },
+    "esperado": 403,
+    "estado": 403,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 24,
+    "prueba": "Veterinario actualiza mascota",
+    "fechaUtc": "2026-11-26T22:27:47.342663+00:00",
+    "metodo": "PUT",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/mascotas/2",
+    "rol": "Veterinario",
+    "solicitud": {
+      "nombre": "Nube",
+      "especie": "Gato",
+      "edad": 3,
+      "propietarioId": 3
+    },
+    "esperado": 204,
+    "estado": 204,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 25,
+    "prueba": "Regla propietario con mascota",
+    "fechaUtc": "2026-11-26T22:27:47.665938+00:00",
+    "metodo": "DELETE",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/propietarios/3",
+    "rol": "Recepcionista",
+    "solicitud": null,
+    "esperado": 409,
+    "estado": 409,
+    "respuesta": {
+      "title": "Regla de negocio",
+      "status": 409,
+      "detail": "No se puede eliminar un propietario con mascotas registradas."
+    },
+    "correcto": true
+  },
+  {
+    "numero": 26,
+    "prueba": "Eliminar mascota",
+    "fechaUtc": "2026-11-26T22:27:47.968625+00:00",
+    "metodo": "DELETE",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/mascotas/2",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 204,
+    "estado": 204,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 27,
+    "prueba": "Mascota eliminada",
+    "fechaUtc": "2026-11-26T22:27:48.312768+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/mascotas/2",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 404,
+    "estado": 404,
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+      "title": "Not Found",
+      "status": 404,
+      "traceId": "00-05d90eea9257216ca99f53e0b8e544c3-e62752a55819bff8-00"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 28,
+    "prueba": "Eliminar propietario",
+    "fechaUtc": "2026-11-26T22:27:48.599360+00:00",
+    "metodo": "DELETE",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/propietarios/3",
+    "rol": "Recepcionista",
+    "solicitud": null,
+    "esperado": 204,
+    "estado": 204,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 29,
+    "prueba": "Registro publico impone rol",
+    "fechaUtc": "2026-11-26T22:27:48.955477+00:00",
+    "metodo": "POST",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/auth/registro",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "prueba.e48ffff8d3@veterinaria.test",
+      "clave": "[oculta]",
+      "rol": "Veterinario"
+    },
+    "esperado": 201,
+    "estado": 201,
+    "respuesta": {
+      "correo": "prueba.e48ffff8d3@veterinaria.test",
+      "rol": "Recepcionista"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 30,
+    "prueba": "Correo repetido",
+    "fechaUtc": "2026-11-26T22:27:50.271825+00:00",
+    "metodo": "POST",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/auth/registro",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "PRUEBA.E48FFFF8D3@VETERINARIA.TEST",
+      "clave": "[oculta]"
+    },
+    "esperado": 409,
+    "estado": 409,
+    "respuesta": {
+      "title": "Regla de negocio",
+      "status": 409,
+      "detail": "El correo ya esta registrado."
+    },
+    "correcto": true
+  },
+  {
+    "numero": 31,
+    "prueba": "Validacion de datos",
+    "fechaUtc": "2026-11-26T22:27:50.559992+00:00",
+    "metodo": "POST",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/auth/registro",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "invalido",
+      "clave": "[oculta]"
+    },
+    "esperado": 400,
+    "estado": 400,
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+      "title": "One or more validation errors occurred.",
+      "status": 400,
+      "errors": {
+        "Clave": [
+          "The field Clave must be a string with a minimum length of 8 and a maximum length of 72."
+        ],
+        "Correo": [
+          "The Correo field is not a valid e-mail address."
+        ]
+      },
+      "traceId": "00-c56a34bddd59f498e238a044903ef7dc-2cc0a7e311405e49-00"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 32,
+    "prueba": "Ruta no configurada",
+    "fechaUtc": "2026-11-26T22:27:50.818386+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/desconocida",
+    "rol": "Sin token",
+    "solicitud": null,
+    "esperado": 404,
+    "estado": 404,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 33,
+    "prueba": "Servicio 2 detenido",
+    "fechaUtc": "2026-11-26T22:28:40.595808+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/vacunas",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 502,
+    "estado": 502,
+    "respuesta": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <title>502</title>\n    <style>@font-face {\n  font-family: \"Roobert\";\n  font-weight: 500;\n  font-style: normal;\n  font-stretch: normal;\n  src: url(\"data:font/woff2;base64,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",
+    "correcto": true
+  },
+  {
+    "numero": 34,
+    "prueba": "API principal sigue funcionando",
+    "fechaUtc": "2026-11-26T22:28:41.256877+00:00",
+    "metodo": "GET",
+    "url": "https://veterinaria-s15-carlos-gateway.onrender.com/gateway/mascotas",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Luna",
+        "especie": "Perro",
+        "edad": 3,
+        "propietarioId": 1,
+        "propietarioNombre": "Ana Torres"
+      }
+    ],
+    "correcto": true
+  }
+]

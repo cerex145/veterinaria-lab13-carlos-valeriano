@@ -54,7 +54,12 @@ Para PostgreSQL se usa Npgsql.EntityFrameworkCore.PostgreSQL 10.0.4. El SQL adap
 
 `pruebas/semana15.py` usa GATEWAY_URL, VACUNAS_URL, RECEPCIONISTA_PASSWORD y VETERINARIO_PASSWORD. RESULT_DIR selecciona la carpeta de resultados. Ejecutarlo con Python 3. Los resultados omiten contrasenas y JWT completos. `pruebas/semana15.http` permite repetir la demostracion manual.
 
-Para comprobar el 502 local, detener VacunasApi y consultar GET /gateway/vacunas con token. Comprobar luego GET /gateway/mascotas con token: el servicio principal debe seguir respondiendo. En Render, una suspension manual devuelve una pagina del proveedor en lugar de cerrar necesariamente la conexion HTTPS; la evidencia debe distinguir ese caso del 502 generado por Ocelot ante un fallo real de conexion.
+Para comprobar el 502 local, detener VacunasApi y consultar GET /gateway/vacunas con token. Comprobar luego GET /gateway/mascotas con token: el servicio principal debe seguir respondiendo. En la nube se suspendio VacunasApi mediante Render: la ruta del gateway devolvio 502 y la API principal siguio respondiendo 200. El cuerpo del 502 de la nube es HTML del proveedor; localmente Ocelot devolvio 502 con cuerpo vacio. Despues se reanudo el servicio de vacunas.
+
+Resultados: 34/34 casos locales y 34/34 en la nube. Las capturas de pruebas muestran registros de solicitudes HTTP reales mediante un visor local; las fechas, direcciones y respuestas se conservan en resultados.json. Las capturas del archivo JSON se presentan en tres partes consecutivas.
+
+Para el video, importar pruebas/Semana15.postman_collection.json y el entorno privado suministrado por separado. Ejecutar 01 y 02 para guardar automaticamente los tokens. El caso 10 solo debe enviarse despues de suspender VacunasApi; reanudarlo antes del caso 12. Los entornos privados no pertenecen al repositorio.
+
 
 ## Fuentes tecnicas
 

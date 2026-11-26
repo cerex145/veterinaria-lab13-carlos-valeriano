@@ -1,0 +1,391 @@
+{
+  "info": {
+    "name": "Veterinaria Semana 15",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "01 Login Recepcionista",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{gateway}}/gateway/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"correo\": \"recepcionista@veterinaria.test\",\n  \"clave\": \"{{claveRecepcionista}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.environment.set(\"tokenRecepcionista\", pm.response.json().token);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 Login Veterinario",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{gateway}}/gateway/auth/login",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"correo\": \"veterinario@veterinaria.test\",\n  \"clave\": \"{{claveVeterinario}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "pm.environment.set(\"tokenVeterinario\", pm.response.json().token);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 401 sin token",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{gateway}}/gateway/vacunas"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 401\", () => pm.response.to.have.status(401));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 200 vacunas con token",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenRecepcionista}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{gateway}}/gateway/vacunas"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 200 vacuna por id",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenVeterinario}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{gateway}}/gateway/vacunas/1"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 403 rol Veterinario no crea propietario",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenVeterinario}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{gateway}}/gateway/propietarios",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Prueba Video\",\n  \"dni\": \"{{dni}}\",\n  \"telefono\": \"900111222\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 403\", () => pm.response.to.have.status(403));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "07 201 crear propietario",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenRecepcionista}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{gateway}}/gateway/propietarios",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Prueba Video\",\n  \"dni\": \"{{dni}}\",\n  \"telefono\": \"900111222\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.environment.set(\"dni\", String(Math.floor(90000000 + Math.random() * 9999999)));"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 201\", () => pm.response.to.have.status(201));",
+              "pm.environment.set(\"propietarioId\", pm.response.json().id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "08 204 actualizar propietario",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenRecepcionista}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{gateway}}/gateway/propietarios/{{propietarioId}}",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Prueba Video Actualizada\",\n  \"dni\": \"{{dni}}\",\n  \"telefono\": \"900111222\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "09 404 vacuna inexistente",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenVeterinario}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{gateway}}/gateway/vacunas/999999"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 404\", () => pm.response.to.have.status(404));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "10 502 suspender VacunasApi antes de enviar",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenVeterinario}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{gateway}}/gateway/vacunas"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 502\", () => pm.response.to.have.status(502));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "11 200 mascotas durante caida de vacunas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenVeterinario}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{gateway}}/gateway/mascotas"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "12 200 vacunas despues de reanudar",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenVeterinario}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{gateway}}/gateway/vacunas"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "13 204 limpiar propietario de prueba",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{tokenRecepcionista}}",
+            "type": "text"
+          }
+        ],
+        "url": "{{gateway}}/gateway/propietarios/{{propietarioId}}"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 204\", () => pm.response.to.have.status(204));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "14 401 acceso directo al servicio 2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{vacunas}}/api/vacunas"
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 401\", () => pm.response.to.have.status(401));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
