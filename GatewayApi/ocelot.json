@@ -1,0 +1,142 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/gateway/auth/{everything}",
+      "UpstreamHttpMethod": [
+        "POST"
+      ],
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5055
+        }
+      ],
+      "Priority": 1
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/auth/perfil",
+      "UpstreamHttpMethod": [
+        "GET"
+      ],
+      "DownstreamPathTemplate": "/api/auth/perfil",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5055
+        }
+      ],
+      "Priority": 5,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKeys": [
+          "Bearer"
+        ]
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/propietarios{everything}",
+      "UpstreamHttpMethod": [
+        "GET"
+      ],
+      "DownstreamPathTemplate": "/api/propietarios{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5055
+        }
+      ],
+      "Priority": 1
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/propietarios{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
+      "DownstreamPathTemplate": "/api/propietarios{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5055
+        }
+      ],
+      "Priority": 1,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKeys": [
+          "Bearer"
+        ]
+      },
+      "DownstreamHeaderTransform": {
+        "Location": "http://localhost:5055/api/, http://localhost:5100/gateway/"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/mascotas{everything}",
+      "UpstreamHttpMethod": [
+        "GET"
+      ],
+      "DownstreamPathTemplate": "/api/mascotas{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5055
+        }
+      ],
+      "Priority": 1
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/mascotas{everything}",
+      "UpstreamHttpMethod": [
+        "POST",
+        "PUT",
+        "DELETE"
+      ],
+      "DownstreamPathTemplate": "/api/mascotas{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5055
+        }
+      ],
+      "Priority": 1,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKeys": [
+          "Bearer"
+        ]
+      },
+      "DownstreamHeaderTransform": {
+        "Location": "http://localhost:5055/api/, http://localhost:5100/gateway/"
+      }
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/vacunas{everything}",
+      "UpstreamHttpMethod": [
+        "GET"
+      ],
+      "DownstreamPathTemplate": "/api/vacunas{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5056
+        }
+      ],
+      "Priority": 1,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKeys": [
+          "Bearer"
+        ]
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5100"
+  }
+}

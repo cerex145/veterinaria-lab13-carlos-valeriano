@@ -1,0 +1,9 @@
+**/bin
+**/obj
+.git
+.env
+**/appsettings.Development.json
+**/*.log
+evidencias
+pruebas
+informe

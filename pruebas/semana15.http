@@ -1,0 +1,31 @@
+@gateway = http://localhost:5100
+@vacunas = http://localhost:5056
+@correo = recepcionista@veterinaria.test
+@clave = {{$processEnv RECEPCIONISTA_PASSWORD}}
+@token = PEGAR_TOKEN_DEL_LOGIN
+
+POST {{gateway}}/gateway/auth/login
+Content-Type: application/json
+
+{"correo":"{{correo}}","clave":"{{clave}}"}
+
+###
+GET {{gateway}}/gateway/vacunas
+
+###
+GET {{gateway}}/gateway/vacunas
+Authorization: Bearer {{token}}
+
+###
+GET {{gateway}}/gateway/vacunas/999999
+Authorization: Bearer {{token}}
+
+###
+POST {{gateway}}/gateway/propietarios
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"nombre":"Demostracion","dni":"93847561","telefono":"900111222"}
+
+###
+GET {{vacunas}}/api/vacunas

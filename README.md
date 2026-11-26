@@ -1,40 +1,65 @@
-# Veterinaria Lab 13
-Autor: Carlos Alberto Valeriano Colan.
+# Veterinaria Semana 15
 
-API REST ASP.NET Core .NET 10, EF Core SQL Server y AutoMapper. Cuatro proyectos con referencias Api → Negocio → Datos → Entidades.
+Carlos Alberto Valeriano Colan. .NET 10, Ocelot 25.0.3 y JwtBearer 10.0.15.
 
-## Ejecución
-1. Instalar SDK .NET 10 y disponer de SQL Server 2022 o posterior.
-2. Ejecutar `sql/01_veterinaria.sql` en SQL Server. Es idempotente y contiene datos de ejemplo.
-3. Configurar la variable de entorno `ConnectionStrings__Veterinaria` con la conexión de la base creada. Establecer su valor en la terminal local; no guardarlo ni publicarlo en archivos del repositorio. La API también admite User Secrets con la clave `ConnectionStrings:Veterinaria`.
-4. `dotnet restore` y `dotnet build`.
-5. `dotnet dev-certs https --trust` y `dotnet run --project Veterinaria.Api --launch-profile https`.
-6. Abrir https://localhost:7243/swagger.
+## Solucion
 
-## Modelo y reglas
-Un propietario tiene muchas mascotas; Mascota.PropietarioId es la FK obligatoria.
-Se rechaza el DNI duplicado, eliminar propietarios con mascotas y registrar o trasladar una mascota a un propietario inexistente. Los servicios lanzan ReglaNegocioException y los controladores responden 409.
+GatewayApi atiende en http://localhost:5100 y reenvia las solicitudes a Veterinaria.Api (5055) o VacunasApi (5056). La API conserva Entidades, Datos, Negocio y API, las reglas de propietarios y mascotas, AutoMapper y la relacion 1:N. VacunasApi usa datos en memoria y no referencia los proyectos ni la base de datos de Veterinaria.
 
-## Endpoints
-GET/POST `/api/Propietarios`; GET/PUT/DELETE `/api/Propietarios/{id}`; GET `/api/Propietarios/{id}/mascotas`.
-GET/POST `/api/Mascotas`; GET/PUT/DELETE `/api/Mascotas/{id}`.
-Filtros: `?nombre=Ana`, `?especie=Perro&propietarioId=1`.
+Se partio del repositorio de la Semana 13 indicado por el alumno. Se incorporo la autenticacion descrita en su informe de la Semana 14: registro con BCrypt y rol Recepcionista, login JWT, perfil desde claims y permisos de Recepcionista y Veterinario.
 
-Las entradas tienen Data Annotations, las respuestas usan DTOs y no se aplica JsonIgnore a las entidades. El MappingProfile contiene seis mapas explícitos sin ReverseMap.
+## Configuracion
 
-## Base de datos primero
-Consultar `scripts/scaffold.ps1` y la evidencia de ejecución. El contexto se genera en Datos y las entidades se ubican en Entidades. No se almacenan conexiones ni contraseñas en el repositorio.
+Los tres proyectos requieren Jwt__Key (al menos 32 bytes), Jwt__Issuer y Jwt__Audience iguales. Veterinaria.Api tambien requiere Jwt__Minutes y ConnectionStrings__Veterinaria. Configurarlos mediante variables de entorno o User Secrets. No guardar valores secretos en archivos versionados.
+
+Para SQL Server, ejecutar sql/01_veterinaria.sql y sql/02_usuarios_jwt.sql en la misma base y usar DatabaseProvider=SqlServer. Para PostgreSQL, crear una base y ejecutar sql/03_veterinaria_postgresql.sql, con DatabaseProvider=PostgreSQL. El script contiene hashes BCrypt, nunca las contrasenas en texto. Para crear cuentas propias, registrarlas mediante la API y asignar Veterinario con un UPDATE SQL autorizado.
+
+## Ejecucion local
+
+Compilar con `dotnet build Veterinaria.sln -c Release`. Abrir tres terminales con las variables configuradas y ejecutar:
+
+```
+dotnet run --project Veterinaria.Api
+dotnet run --project VacunasApi
+dotnet run --project GatewayApi
+```
+
+Los puertos estan fijados en Properties/launchSettings.json. Ejecutar pruebas por http://localhost:5100/gateway. Swagger de la API esta disponible en Development en http://localhost:5055/swagger para inspeccion del esquema Bearer.
+
+## Rutas y seguridad
+
+| Upstream | Metodo | Downstream | JWT en gateway |
+|---|---|---|---|
+| /gateway/auth/{everything} | POST | API /api/auth/{everything} | No |
+| /gateway/auth/perfil | GET | API /api/auth/perfil | Si |
+| /gateway/propietarios{everything} | GET | API /api/propietarios{everything} | No |
+| /gateway/propietarios{everything} | POST PUT DELETE | API /api/propietarios{everything} | Si |
+| /gateway/mascotas{everything} | GET | API /api/mascotas{everything} | No |
+| /gateway/mascotas{everything} | POST PUT DELETE | API /api/mascotas{everything} | Si |
+| /gateway/vacunas{everything} | GET | Vacunas /api/vacunas{everything} | Si |
+
+Los GET de propietarios y mascotas no requieren autenticacion del gateway; la API si la exige, conforme a la matriz de la Semana 14. Por eso un GET sin token devuelve 401. Se conserva esa seguridad en vez de cambiar los permisos del negocio. Todos los endpoints de VacunasApi exigen JWT, incluso si se invocan directamente.
+
+El gateway y los servicios validan firma HS256, emisor, audiencia y vencimiento. El gateway usa AuthenticationProviderKeys=["Bearer"]. Los roles se verifican en la API, no en el gateway.
+
+## Nube
+
+Hosting y base de datos: Render Free, region Oregon. Los servicios usan sus Dockerfile y variables de entorno. El Dockerfile de GatewayApi instala ocelot.Cloud.json como ocelot.json dentro de la imagen publicada. Todos los downstream son HTTPS en el puerto 443. Se conserva ocelot.json para ejecucion local.
+
+La alternativa evaluada fue Neon Free para PostgreSQL; Render permite concentrar el despliegue y la base en el mismo proveedor. Render Free tiene arranque en frio y cuotas compartidas de horas. La base gratuita caduca 30 dias despues de su creacion; consultar la fecha exacta y respaldar el laboratorio antes de que expire. No se contrataron planes de pago.
+
+Para PostgreSQL se usa Npgsql.EntityFrameworkCore.PostgreSQL 10.0.4. El SQL adapta IDENTITY de SQL Server a GENERATED BY DEFAULT AS IDENTITY, elimina GO y dbo y conserva identificadores entre comillas, restricciones y relaciones. Las reglas del servicio no cambian.
 
 ## Pruebas
-Las 27 pruebas documentadas pasaron contra SQL Server 2022: 11 endpoints, filtros, ruta anidada, cabeceras Location, DTOs y códigos 200/201/204/400/404/409. Las altas de prueba se eliminan al finalizar; los datos de ejemplo permanecen.
 
-Con la API iniciada, ejecutar `python pruebas/probar.py` (Python 3, sin dependencias externas). También se pueden ejecutar, en orden, las peticiones de `pruebas/endpoints.http` mediante REST Client de VS Code. Los identificadores de las altas se toman de las respuestas de POST.
+`pruebas/semana15.py` usa GATEWAY_URL, VACUNAS_URL, RECEPCIONISTA_PASSWORD y VETERINARIO_PASSWORD. RESULT_DIR selecciona la carpeta de resultados. Ejecutarlo con Python 3. Los resultados omiten contrasenas y JWT completos. `pruebas/semana15.http` permite repetir la demostracion manual.
 
-`pruebas/resultados.json` conserva el registro original de ejecución y `pruebas/informe-pruebas.html` permite ver las respuestas sin iniciar la API. Las imágenes están en `evidencias/`; `evidencias/scaffold.txt` registra el Scaffold real y la compilación correcta.
+Para comprobar el 502 local, detener VacunasApi y consultar GET /gateway/vacunas con token. Comprobar luego GET /gateway/mascotas con token: el servicio principal debe seguir respondiendo. En Render, una suspension manual devuelve una pagina del proveedor en lugar de cerrar necesariamente la conexion HTTPS; la evidencia debe distinguir ese caso del 502 generado por Ocelot ante un fallo real de conexion.
 
-El cliente automatizado acepta el certificado HTTPS de desarrollo de localhost. Swagger se usa en entorno Development. El aviso de licencia de AutoMapper en desarrollo es el esperado por la guía.
+## Fuentes tecnicas
 
-## Entrega
-Repositorio: https://github.com/cerex145/veterinaria-lab13-carlos-valeriano
-
-El informe conserva la plantilla original del laboratorio y contiene la explicación del tema, la sustentación de los seis mapeos, las capturas y las conclusiones. Las capturas del explorador y del código se obtuvieron del editor web GitHub1s sobre este mismo repositorio.
+- https://ocelot.readthedocs.io/en/latest/features/authentication.html
+- https://ocelot.readthedocs.io/en/latest/features/routing.html
+- https://render.com/docs/free
+- https://render.com/docs/docker
+- https://neon.com/blog/neon-free-plan-1-gb-per-project

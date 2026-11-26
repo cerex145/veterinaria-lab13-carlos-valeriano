@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Veterinaria.Entidades;
@@ -15,6 +15,8 @@ public partial class VeterinariaContext : DbContext
     public virtual DbSet<Mascota> Mascotas { get; set; }
 
     public virtual DbSet<Propietario> Propietarios { get; set; }
+
+    public DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -44,6 +46,14 @@ public partial class VeterinariaContext : DbContext
             entity.Property(e => e.Telefono).HasMaxLength(20);
         });
 
+        modelBuilder.Entity<Usuario>(entity =>
+        {
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Correo).HasMaxLength(254);
+            entity.Property(x => x.ClaveHash).HasMaxLength(100);
+            entity.Property(x => x.Rol).HasMaxLength(30);
+            entity.HasIndex(x => x.Correo).IsUnique();
+        });
         OnModelCreatingPartial(modelBuilder);
     }
 

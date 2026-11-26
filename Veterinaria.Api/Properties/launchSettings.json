@@ -1,1 +1,12 @@
-{"profiles":{"https":{"commandName":"Project","launchBrowser":true,"launchUrl":"swagger","applicationUrl":"https://localhost:7243;http://localhost:5243","environmentVariables":{"ASPNETCORE_ENVIRONMENT":"Development"}}}}
+{
+  "profiles": {
+    "Veterinaria.Api": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5055",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

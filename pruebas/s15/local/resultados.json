@@ -1,0 +1,608 @@
+[
+  {
+    "numero": 1,
+    "prueba": "Login de Recepcionista",
+    "fechaUtc": "2026-11-26T22:22:22.449360+00:00",
+    "metodo": "POST",
+    "url": "http://localhost:5100/gateway/auth/login",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "recepcionista@veterinaria.test",
+      "clave": "[oculta]"
+    },
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": {
+      "token": "[JWT omitido]",
+      "expiracion": "2026-11-26T23:22:23.1515171Z"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 2,
+    "prueba": "Login de Veterinario",
+    "fechaUtc": "2026-11-26T22:22:23.177968+00:00",
+    "metodo": "POST",
+    "url": "http://localhost:5100/gateway/auth/login",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "veterinario@veterinaria.test",
+      "clave": "[oculta]"
+    },
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": {
+      "token": "[JWT omitido]",
+      "expiracion": "2026-11-26T23:22:23.4518174Z"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 3,
+    "prueba": "Catalogo por gateway sin JWT",
+    "fechaUtc": "2026-11-26T22:22:23.453752+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/vacunas",
+    "rol": "Sin token",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 4,
+    "prueba": "Servicio 2 directo sin JWT",
+    "fechaUtc": "2026-11-26T22:22:23.472870+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5056/api/vacunas",
+    "rol": "Sin token",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 5,
+    "prueba": "Escritura sin JWT",
+    "fechaUtc": "2026-11-26T22:22:23.491867+00:00",
+    "metodo": "POST",
+    "url": "http://localhost:5100/gateway/propietarios",
+    "rol": "Sin token",
+    "solicitud": {
+      "nombre": "Prueba",
+      "dni": "92345678",
+      "telefono": "900000000"
+    },
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 6,
+    "prueba": "Perfil sin JWT",
+    "fechaUtc": "2026-11-26T22:22:23.496869+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/auth/perfil",
+    "rol": "Sin token",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 7,
+    "prueba": "GET de la S14 conserva autenticacion",
+    "fechaUtc": "2026-11-26T22:22:23.500872+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/propietarios",
+    "rol": "Sin token",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 8,
+    "prueba": "Credenciales invalidas",
+    "fechaUtc": "2026-11-26T22:22:23.523884+00:00",
+    "metodo": "POST",
+    "url": "http://localhost:5100/gateway/auth/login",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "noexiste@veterinaria.test",
+      "clave": "[oculta]"
+    },
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.2",
+      "title": "Unauthorized",
+      "status": 401,
+      "traceId": "00-8d9faffcb4afc0b45f13d4ef6a1005bd-0413c700ea94d5f7-00"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 9,
+    "prueba": "Firma invalida en gateway",
+    "fechaUtc": "2026-11-26T22:22:23.543504+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/vacunas",
+    "rol": "Invalido",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 10,
+    "prueba": "Firma invalida en servicio 2",
+    "fechaUtc": "2026-11-26T22:22:23.604353+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5056/api/vacunas",
+    "rol": "Invalido",
+    "solicitud": null,
+    "esperado": 401,
+    "estado": 401,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 11,
+    "prueba": "Lista de vacunas Recepcionista",
+    "fechaUtc": "2026-11-26T22:22:23.675002+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/vacunas",
+    "rol": "Recepcionista",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Antirrabica",
+        "especie": "Perro y gato"
+      },
+      {
+        "id": 2,
+        "nombre": "Triple felina",
+        "especie": "Gato"
+      },
+      {
+        "id": 3,
+        "nombre": "Quintuple canina",
+        "especie": "Perro"
+      }
+    ],
+    "correcto": true
+  },
+  {
+    "numero": 12,
+    "prueba": "Vacuna por id Veterinario",
+    "fechaUtc": "2026-11-26T22:22:23.739895+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/vacunas/1",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": {
+      "id": 1,
+      "nombre": "Antirrabica",
+      "especie": "Perro y gato"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 13,
+    "prueba": "Vacuna inexistente",
+    "fechaUtc": "2026-11-26T22:22:23.767892+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/vacunas/999999",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 404,
+    "estado": 404,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 14,
+    "prueba": "Perfil desde claims",
+    "fechaUtc": "2026-11-26T22:22:23.771891+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/auth/perfil",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": {
+      "correo": "veterinario@veterinaria.test",
+      "rol": "Veterinario"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 15,
+    "prueba": "Filtro propietarios",
+    "fechaUtc": "2026-11-26T22:22:23.823232+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/propietarios?nombre=Ana",
+    "rol": "Recepcionista",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Ana Torres",
+        "dni": "12345678",
+        "telefono": "987654321"
+      }
+    ],
+    "correcto": true
+  },
+  {
+    "numero": 16,
+    "prueba": "Filtro mascotas",
+    "fechaUtc": "2026-11-26T22:22:23.876775+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/mascotas?especie=Perro&propietarioId=1",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Luna",
+        "especie": "Perro",
+        "edad": 3,
+        "propietarioId": 1,
+        "propietarioNombre": "Ana Torres"
+      }
+    ],
+    "correcto": true
+  },
+  {
+    "numero": 17,
+    "prueba": "Rol sin permiso de alta",
+    "fechaUtc": "2026-11-26T22:22:23.962508+00:00",
+    "metodo": "POST",
+    "url": "http://localhost:5100/gateway/propietarios",
+    "rol": "Veterinario",
+    "solicitud": {
+      "nombre": "Prueba",
+      "dni": "92345678",
+      "telefono": "900000000"
+    },
+    "esperado": 403,
+    "estado": 403,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 18,
+    "prueba": "Crear propietario",
+    "fechaUtc": "2026-11-26T22:22:23.981394+00:00",
+    "metodo": "POST",
+    "url": "http://localhost:5100/gateway/propietarios",
+    "rol": "Recepcionista",
+    "solicitud": {
+      "nombre": "Prueba Semana Quince",
+      "dni": "92985237",
+      "telefono": "900111222"
+    },
+    "esperado": 201,
+    "estado": 201,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Prueba Semana Quince",
+      "dni": "92985237",
+      "telefono": "900111222"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 19,
+    "prueba": "Propietario por id",
+    "fechaUtc": "2026-11-26T22:22:24.122925+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/propietarios/3",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": {
+      "id": 3,
+      "nombre": "Prueba Semana Quince",
+      "dni": "92985237",
+      "telefono": "900111222"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 20,
+    "prueba": "Actualizar propietario",
+    "fechaUtc": "2026-11-26T22:22:24.162485+00:00",
+    "metodo": "PUT",
+    "url": "http://localhost:5100/gateway/propietarios/3",
+    "rol": "Recepcionista",
+    "solicitud": {
+      "nombre": "Prueba Actualizada",
+      "dni": "92985237",
+      "telefono": "900111222"
+    },
+    "esperado": 204,
+    "estado": 204,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 21,
+    "prueba": "Crear mascota",
+    "fechaUtc": "2026-11-26T22:22:24.183489+00:00",
+    "metodo": "POST",
+    "url": "http://localhost:5100/gateway/mascotas",
+    "rol": "Recepcionista",
+    "solicitud": {
+      "nombre": "Nube",
+      "especie": "Gato",
+      "edad": 2,
+      "propietarioId": 3
+    },
+    "esperado": 201,
+    "estado": 201,
+    "respuesta": {
+      "id": 2,
+      "nombre": "Nube",
+      "especie": "Gato",
+      "edad": 2,
+      "propietarioId": 3,
+      "propietarioNombre": "Prueba Actualizada"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 22,
+    "prueba": "Ruta anidada con comodin",
+    "fechaUtc": "2026-11-26T22:22:24.221604+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/propietarios/3/mascotas",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": [
+      {
+        "id": 2,
+        "nombre": "Nube",
+        "especie": "Gato",
+        "edad": 2,
+        "propietarioId": 3,
+        "propietarioNombre": "Prueba Actualizada"
+      }
+    ],
+    "correcto": true
+  },
+  {
+    "numero": 23,
+    "prueba": "Recepcionista no modifica mascota",
+    "fechaUtc": "2026-11-26T22:22:24.238500+00:00",
+    "metodo": "PUT",
+    "url": "http://localhost:5100/gateway/mascotas/2",
+    "rol": "Recepcionista",
+    "solicitud": {
+      "nombre": "Nube",
+      "especie": "Gato",
+      "edad": 3,
+      "propietarioId": 3
+    },
+    "esperado": 403,
+    "estado": 403,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 24,
+    "prueba": "Veterinario actualiza mascota",
+    "fechaUtc": "2026-11-26T22:22:24.259498+00:00",
+    "metodo": "PUT",
+    "url": "http://localhost:5100/gateway/mascotas/2",
+    "rol": "Veterinario",
+    "solicitud": {
+      "nombre": "Nube",
+      "especie": "Gato",
+      "edad": 3,
+      "propietarioId": 3
+    },
+    "esperado": 204,
+    "estado": 204,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 25,
+    "prueba": "Regla propietario con mascota",
+    "fechaUtc": "2026-11-26T22:22:24.288498+00:00",
+    "metodo": "DELETE",
+    "url": "http://localhost:5100/gateway/propietarios/3",
+    "rol": "Recepcionista",
+    "solicitud": null,
+    "esperado": 409,
+    "estado": 409,
+    "respuesta": {
+      "title": "Regla de negocio",
+      "status": 409,
+      "detail": "No se puede eliminar un propietario con mascotas registradas."
+    },
+    "correcto": true
+  },
+  {
+    "numero": 26,
+    "prueba": "Eliminar mascota",
+    "fechaUtc": "2026-11-26T22:22:24.304499+00:00",
+    "metodo": "DELETE",
+    "url": "http://localhost:5100/gateway/mascotas/2",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 204,
+    "estado": 204,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 27,
+    "prueba": "Mascota eliminada",
+    "fechaUtc": "2026-11-26T22:22:24.334260+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/mascotas/2",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 404,
+    "estado": 404,
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+      "title": "Not Found",
+      "status": 404,
+      "traceId": "00-b6db70d4fc64bcaa82353c3d01d2b5fc-619803a7e70af1a1-00"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 28,
+    "prueba": "Eliminar propietario",
+    "fechaUtc": "2026-11-26T22:22:24.361256+00:00",
+    "metodo": "DELETE",
+    "url": "http://localhost:5100/gateway/propietarios/3",
+    "rol": "Recepcionista",
+    "solicitud": null,
+    "esperado": 204,
+    "estado": 204,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 29,
+    "prueba": "Registro publico impone rol",
+    "fechaUtc": "2026-11-26T22:22:24.391257+00:00",
+    "metodo": "POST",
+    "url": "http://localhost:5100/gateway/auth/registro",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "prueba.f02a3ff4c6@veterinaria.test",
+      "clave": "[oculta]",
+      "rol": "Veterinario"
+    },
+    "esperado": 201,
+    "estado": 201,
+    "respuesta": {
+      "correo": "prueba.f02a3ff4c6@veterinaria.test",
+      "rol": "Recepcionista"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 30,
+    "prueba": "Correo repetido",
+    "fechaUtc": "2026-11-26T22:22:24.562177+00:00",
+    "metodo": "POST",
+    "url": "http://localhost:5100/gateway/auth/registro",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "PRUEBA.F02A3FF4C6@VETERINARIA.TEST",
+      "clave": "[oculta]"
+    },
+    "esperado": 409,
+    "estado": 409,
+    "respuesta": {
+      "title": "Regla de negocio",
+      "status": 409,
+      "detail": "El correo ya esta registrado."
+    },
+    "correcto": true
+  },
+  {
+    "numero": 31,
+    "prueba": "Validacion de datos",
+    "fechaUtc": "2026-11-26T22:22:24.568176+00:00",
+    "metodo": "POST",
+    "url": "http://localhost:5100/gateway/auth/registro",
+    "rol": "Sin token",
+    "solicitud": {
+      "correo": "invalido",
+      "clave": "[oculta]"
+    },
+    "esperado": 400,
+    "estado": 400,
+    "respuesta": {
+      "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+      "title": "One or more validation errors occurred.",
+      "status": 400,
+      "errors": {
+        "Clave": [
+          "The field Clave must be a string with a minimum length of 8 and a maximum length of 72."
+        ],
+        "Correo": [
+          "The Correo field is not a valid e-mail address."
+        ]
+      },
+      "traceId": "00-458d06f1bcb8e995d12cd75c009e14b1-25e77b3a3a9f2402-00"
+    },
+    "correcto": true
+  },
+  {
+    "numero": 32,
+    "prueba": "Ruta no configurada",
+    "fechaUtc": "2026-11-26T22:22:24.590175+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/desconocida",
+    "rol": "Sin token",
+    "solicitud": null,
+    "esperado": 404,
+    "estado": 404,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 33,
+    "prueba": "Servicio 2 detenido",
+    "fechaUtc": "2026-11-26T22:22:29.201989+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/vacunas",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 502,
+    "estado": 502,
+    "respuesta": null,
+    "correcto": true
+  },
+  {
+    "numero": 34,
+    "prueba": "API principal sigue funcionando",
+    "fechaUtc": "2026-11-26T22:22:29.213986+00:00",
+    "metodo": "GET",
+    "url": "http://localhost:5100/gateway/mascotas",
+    "rol": "Veterinario",
+    "solicitud": null,
+    "esperado": 200,
+    "estado": 200,
+    "respuesta": [
+      {
+        "id": 1,
+        "nombre": "Luna",
+        "especie": "Perro",
+        "edad": 3,
+        "propietarioId": 1,
+        "propietarioNombre": "Ana Torres"
+      }
+    ],
+    "correcto": true
+  }
+]
